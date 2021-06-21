@@ -1,0 +1,11 @@
+name: RealmsCore
+version: 1.0.0
+main: eu.hafixion.realms.RealmsCorePlugin
+description: The main core plugin of Realms
+load: POSTWORLD
+author: Hafixion
+depend:
+ - CoreProtect
+ - KotlinBukkitAPI
+ - PlaceholderAPI
+api-version: 1.16

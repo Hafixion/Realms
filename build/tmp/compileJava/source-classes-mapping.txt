@@ -1,0 +1,25 @@
+eu/hafixion/realms/utils/database/UUIDSerializable.java
+ eu.hafixion.realms.utils.database.UUIDSerializable
+ eu.hafixion.realms.utils.database.UUIDSerializable$1
+eu/hafixion/realms/confirmation/Confirmation.java
+ eu.hafixion.realms.confirmation.Confirmation
+eu/hafixion/realms/utils/database/Database.java
+ eu.hafixion.realms.utils.database.Database
+eu/hafixion/realms/dynmap/TileFlags.java
+ eu.hafixion.realms.dynmap.TileFlags
+eu/hafixion/realms/confirmation/ConfirmationBuilder.java
+ eu.hafixion.realms.confirmation.ConfirmationBuilder
+eu/hafixion/realms/confirmation/ConfirmationHandler.java
+ eu.hafixion.realms.confirmation.ConfirmationHandler
+ eu.hafixion.realms.confirmation.ConfirmationHandler$ConfirmationContext
+eu/hafixion/realms/utils/database/SerializationType.java
+ eu.hafixion.realms.utils.database.SerializationType
+eu/hafixion/realms/dynmap/DynmapManager.java
+ eu.hafixion.realms.dynmap.DynmapManager
+ eu.hafixion.realms.dynmap.DynmapManager$1
+ eu.hafixion.realms.dynmap.DynmapManager$AreaStyle
+ eu.hafixion.realms.dynmap.DynmapManager$direction
+eu/hafixion/realms/utils/Serializer.java
+ eu.hafixion.realms.utils.Serializer
+eu/hafixion/realms/utils/database/SerializableElement.java
+ eu.hafixion.realms.utils.database.SerializableElement
