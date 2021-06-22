@@ -2,6 +2,7 @@ package eu.hafixion.realms.towny.towns.listeners
 
 import br.com.devsrsouza.kotlinbukkitapi.extensions.event.KListener
 import br.com.devsrsouza.kotlinbukkitapi.extensions.event.event
+import br.com.devsrsouza.kotlinbukkitapi.extensions.location.playSound
 import br.com.devsrsouza.kotlinbukkitapi.extensions.text.msg
 import eu.hafixion.realms.RealmsCorePlugin
 import eu.hafixion.realms.toRealmsPlayer
@@ -17,6 +18,7 @@ import eu.hafixion.realms.towny.towns.listeners.ListenerUtils.town_newbie
 import eu.hafixion.realms.utils.asPos
 import eu.hafixion.realms.utils.errorMessage
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
 import org.bukkit.block.Container
@@ -67,6 +69,7 @@ class BlockListener(override val plugin: RealmsCorePlugin, val town: Town) : KLi
 
     fun blockBreakEvent() {
         event<BlockBreakEvent> {
+
             if (TownDatabase.getTown(block.location) != town) return@event
             val chunk = town.claims.keys.first { it.chunkPos == block.chunk.asPos() }
 
@@ -131,19 +134,23 @@ class BlockListener(override val plugin: RealmsCorePlugin, val town: Town) : KLi
 
     fun blockExplodeEvents() {
         event<BlockExplodeEvent>(EventPriority.HIGHEST) {
+            isCancelled = true
             val combinedHashMap = hashMapOf<Block, Boolean>()
 
             if (blockList().any { TownDatabase.getTown(it.location) == town } && !town.explosions)
                 town.claims.keys.forEach { combinedHashMap.putAll(it.onExplodeEvent(blockList())) }
             blockList().removeAll(combinedHashMap.filter { it.value }.keys)
+            block.location.playSound(Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f)
         }
 
         event<EntityExplodeEvent>(EventPriority.HIGHEST) {
+            isCancelled = true
             val combinedHashMap = hashMapOf<Block, Boolean>()
 
             if (blockList().any { TownDatabase.getTown(it.location) == town } && !town.explosions)
                 town.claims.keys.forEach { combinedHashMap.putAll(it.onExplodeEvent(blockList())) }
             blockList().removeAll(combinedHashMap.filter { it.value }.keys)
+            entity.location.playSound(Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f)
         }
     }
 

@@ -317,22 +317,22 @@ class Town(
     }
 
     fun canPlayerBuild(p: RealmsPlayer, block: Block): Boolean {
-        return if (p.player?.isOp == true) true else if (p.town == this) townPerms[0] || p.hasTownPermission("${block.chunk.x}-${block.chunk.z}.build")
+        return if (p.player?.isOp == true) true else if (p.town == this) townPerms[0] || p.hasTownPermission("${block.chunk.x}.${block.chunk.z}.build")
         else if (p.nation != null && p.nation == nation) nationPerms[0] else outsiderPerms[0]
     }
 
     fun canPlayerDestroy(p: RealmsPlayer, block: Block): Boolean {
-        return if (p.player?.isOp == true) true else if (p.town == this) townPerms[1] || p.hasTownPermission("${block.chunk.x}-${block.chunk.z}.break")
+        return if (p.player?.isOp == true) true else if (p.town == this) townPerms[1] || p.hasTownPermission("${block.chunk.x}.${block.chunk.z}.destroy")
         else if (p.nation != null && p.nation == nation) nationPerms[1] else outsiderPerms[1]
     }
 
     fun canPlayerSwitch(p: RealmsPlayer, block: Block): Boolean {
-        return if (p.player?.isOp == true) true else if (p.town == this) townPerms[2] || p.hasTownPermission("${block.chunk.x}-${block.chunk.z}.switch")
+        return if (p.player?.isOp == true) true else if (p.town == this) townPerms[2] || p.hasTownPermission("${block.chunk.x}.${block.chunk.z}.switch")
         else if (p.nation != null && p.nation == nation) nationPerms[2] else outsiderPerms[2]
     }
 
     fun canPlayerInteract(p: RealmsPlayer, loc: Location): Boolean {
-        return if (p.player?.isOp == true) true else if (p.town == this) townPerms[3] || p.hasTownPermission("${loc.chunk.x}-${loc.chunk.z}.interact")
+        return if (p.player?.isOp == true) true else if (p.town == this) townPerms[3] || p.hasTownPermission("${loc.chunk.x}.${loc.chunk.z}.interact")
         else if (p.nation != null && p.nation == nation) nationPerms[3] else outsiderPerms[3]
     }
 
@@ -682,4 +682,11 @@ class Town(
     }
 }
 
-fun String.isValidTownPerm() = TownPermissions.all.contains(this)
+fun String.isValidTownPerm() = TownPermissions.all.contains(this) || run {
+    val args = split(".")
+    val chunkX = args[0].toIntOrNull()
+    val chunkZ = args[1].toIntOrNull()
+    val arg = args[2]
+    val argIsValid = arg == "switch" || arg == "interact" || arg == "break" || arg == "build"
+    chunkX != null && chunkZ != null && argIsValid
+}
